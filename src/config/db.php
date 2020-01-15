@@ -7,7 +7,7 @@ class db{
 
     private $dbHost = 'localhost';
     private $dbUser = 'root';
-    private $dbPass = '';
+    private $dbPass = 'alfonso';
     private $dbName = 'alf_demo_db';
 
     //conección 
@@ -45,7 +45,7 @@ class db{
       $connect = $this->conectDB();
       $resultado = $connect->prepare($sql);
       $resultado->execute($params);
-    } 
+    }
     public function addEntity($array, $request)
     { 
       $params = array();
@@ -56,7 +56,7 @@ class db{
       }
 
       $sql = "INSERT INTO user(".join(",", $array).") VALUES(" . join(",",array_keys($params)) . ")";
-
+      
       $connect = $this->conectDB();
       $resultado = $connect->prepare($sql);
       $resultado->execute($params);

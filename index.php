@@ -11,6 +11,6 @@ $app = new \Slim\App;
 
 // Ruta usuarios.
 require 'src/rutas/usuarios.php';
-require 'src/rutas/customers.php';
+// require 'src/rutas/customers.php';
 
 $app->run();

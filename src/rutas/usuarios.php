@@ -52,12 +52,12 @@ $app->get('/api/user/{id}', function(Request $request, Response $response){
 });
 
 // POST: cear nuevo usuario
-$app->post('/api/user/new', function(Request $request, Response $response){
+$app->post('/api/user', function(Request $request, Response $response){
     try{
 
         $db = new db();
-        $columns = ['firstname','lastname','username','password'];
-        $db->addEntity(columns, $request);
+        $columns = ['username','password'];
+        $db->addEntity($columns, $request);
         return jsonResponse($response, array('message' => 'New user created'));
     }catch(PDOException $e){
         echo '{"error" : {"text": '. $e->getMessage(). '}}';
@@ -65,10 +65,10 @@ $app->post('/api/user/new', function(Request $request, Response $response){
 });
 
 // PUT: modificar usuario.
-$app->put('/api/user/update/{id}', function(Request $request, Response $response){
+$app->put('/api/user/{id}', function(Request $request, Response $response){
     try{
         $db = new db();
-        $array = array('firstname');
+        $array = array('username');
         $db->updateEntity('user', $array, $request);
         return jsonResponse($response, array('message'=>'Usuario actualizado'));
     }catch(PDOException $e){
@@ -77,35 +77,36 @@ $app->put('/api/user/update/{id}', function(Request $request, Response $response
 });
 
 // PATCH: modificación partial.
-$app->patch('/api/user/update/{id}', function(Request $request, Response $response){
-    try{
-        $db = new db();
-        $array = array('firstname');
-        $db->updateEntity('user', $array, $request);
-        return jsonResponse($response, array('message'=>'Usuario actualizado'));
-    }catch(PDOException $e){
-        echo '{"error" : {"text": '. $e->getMessage(). '}}';
-    }
-});
+// $app->patch('/api/user/{id}', function(Request $request, Response $response){
+//     try{
+//         $db = new db();
+//         $array = array('firstname');
+//         $db->updateEntity('user', $array, $request);
+//         return jsonResponse($response, array('message'=>'Usuario actualizado'));
+//     }catch(PDOException $e){
+//         echo '{"error" : {"text": '. $e->getMessage(). '}}';
+//     }
+// });
 
 // DELETE: eliminar usuario.
-$app->delete('/api/user/delete/{id}', function(Request $request, Response $response){
-    try{
-        $userId = $request->getAttribute('id');
-        $sql = "DELETE FROM user WHERE id = :id";
+$app->delete('/api/user/{id}', function(Request $request, Response $response){
+    return jsonResponse($response, array('message'=>'Método no disponible'));
+    // try{
+    //     $userId = $request->getAttribute('id');
+    //     $sql = "DELETE FROM user WHERE id = :id";
 
-        $db = new db();
-        $db = $db->conectDB();
+    //     $db = new db();
+    //     $db = $db->conectDB();
 
-        $resultado = $db->prepare($sql);
-        $resultado->bindParam(':id', $userId);
-        $resultado->execute();
+    //     $resultado = $db->prepare($sql);
+    //     $resultado->bindParam(':id', $userId);
+    //     $resultado->execute();
 
-        if($resultado->rowCount() >0){
-            return jsonResponse($response, array('message'=>'Usuario eliminado'));
-        }else  return jsonResponse($response, array('message'=>'El usuario no existe'));
-    }catch(PDOException $e){
-        echo '{"error" : {"text": '. $e->getMessage(). '}}';
-    }
+    //     if($resultado->rowCount() >0){
+    //         return jsonResponse($response, array('message'=>'Usuario eliminado'));
+    //     }else return jsonResponse($response, array('message'=>'El usuario no existe'));
+    // }catch(PDOException $e){
+    //     echo '{"error" : {"text": '. $e->getMessage(). '}}';
+    // }
 });
 ?>
