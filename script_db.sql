@@ -1,7 +1,19 @@
+CREATE DATABASE `alf_db`;
 
-CREATE TABLE `user` (
+CREATE TABLE `alf_db`.`user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(200) NOT NULL,
+  `lastupdate` DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `alf_db`.`transaction` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `lastupdate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+  `description` VARCHAR(500) NOT NULL,
+  `amount` DECIMAL(12,2) NOT NULL,
+  `type` VARCHAR(3) NOT NULL DEFAULT 'out',
+  `user_id` INT(11) NOT NULL,
+  `date` DATE NOT NULL,
+  FOREIGN KEY(`user_id`) REFERENCES `alf_db`.`user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;

@@ -7,7 +7,7 @@ class db{
 
     private $dbHost = 'localhost';
     private $dbUser = 'root';
-    private $dbPass = 'alfonso';
+    private $dbPass = '';
     private $dbName = 'alf_demo_db';
 
     //conección 
