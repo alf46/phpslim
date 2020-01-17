@@ -8,7 +8,7 @@ class db{
     private $dbHost = 'localhost';
     private $dbUser = 'root';
     private $dbPass = '';
-    private $dbName = 'alf_demo_db';
+    private $dbName = 'alf_db';
 
     //conección 
     public function conectDB()
