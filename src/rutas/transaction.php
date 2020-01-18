@@ -2,15 +2,13 @@
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-// GET: Todos los clientes.
-$app->get('/api/transactions/{id}', function(Request $request, Response $response){
+// GET: Todas las transacciones.
+$app->get('/api/transactions', function(Request $request, Response $response){
     try{
         $db  = new db();
         $db = $db->conectDB();
-        $user_id = $request->getAttribute('id');
         
-        $sql = "select id, description, amount, type, user_id, date_format(date, '%Y-%m-%dT%TZ') as date ".
-               "from transaction where user_id = " . $user_id;
+        $sql = "select id, description, amount, type, user_id, date_format(date, '%Y-%m-%dT%TZ') as date from transaction";
 
         $resultado = $db->query($sql);
 
@@ -22,7 +20,7 @@ $app->get('/api/transactions/{id}', function(Request $request, Response $respons
         return jsonResponse($response, $resultado);
       
     }catch(PDOException $e){
-        echo '{"error" : {"text": '. $e->getMessage(). '}}';
+        echo '{"error" : {"msg": '. $e->getMessage(). '}}';
     }
 });
 
